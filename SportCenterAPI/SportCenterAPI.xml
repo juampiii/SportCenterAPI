@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SportCenterAPI</name>
+    </assembly>
+    <members>
+        <member name="T:SportCenterAPI.Config.SwaggerConfig">
+            <summary>
+            Allow to register and config the Swagger Service
+            </summary>
+        </member>
+        <member name="M:SportCenterAPI.Config.SwaggerConfig.AddRegistration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add the Swagger Service to the service container
+            </summary>
+            <param name="services">The list of the app services</param>
+            <returns>The list of the services updated</returns>
+        </member>
+        <member name="M:SportCenterAPI.Config.SwaggerConfig.AddRegistration(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Add the Swagger Service to the service container
+            </summary>
+            <param name="app">The class to configure the services</param>
+            <returns>the <paramref name="app"/> with the configuration of the Swagger Service updated</returns>
+        </member>
+        <member name="T:SportCenterAPI.Models.Court">
+            <summary>
+            Represents an Court from the Sport Center
+            </summary>
+        </member>
+        <member name="P:SportCenterAPI.Models.Court.Id">
+            <summary>
+            The ID of the <see cref="T:SportCenterAPI.Models.Court"/>
+            </summary>
+        </member>
+        <member name="P:SportCenterAPI.Models.Court.Name">
+            <summary>
+            The Name of the <see cref="T:SportCenterAPI.Models.Court"/>
+            </summary>
+        </member>
+        <member name="P:SportCenterAPI.Models.Court.Sport">
+            <summary>
+            The <see cref="P:SportCenterAPI.Models.Court.Sport"/> that can be practiced on the <see cref="T:SportCenterAPI.Models.Court"/>
+            </summary>
+        </member>
+        <member name="T:SportCenterAPI.Models.Sport">
+            <summary>
+            Represents an Sport from the Sport Center
+            </summary>
+        </member>
+        <member name="P:SportCenterAPI.Models.Sport.Id">
+            <summary>
+            The ID of the <see cref="T:SportCenterAPI.Models.Sport"/>
+            </summary>
+        </member>
+        <member name="P:SportCenterAPI.Models.Sport.Name">
+            <summary>
+            The Name of the <see cref="T:SportCenterAPI.Models.Sport"/>
+            </summary>
+        </member>
+        <member name="P:SportCenterAPI.Models.Sport.Courts">
+            <summary>
+            Collection of <see cref="T:SportCenterAPI.Models.Court"/> on which you can practice the <see cref="T:SportCenterAPI.Models.Sport"/>
+            </summary>
+        </member>
+    </members>
+</doc>
