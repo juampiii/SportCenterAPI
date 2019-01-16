@@ -15,20 +15,26 @@ namespace SportCenterAPI.Models
         /// <summary>
         /// The ID of the <see cref="Court"/>
         /// </summary>
-        [Key]
-        [Required]
         public int Id { get; set; }
 
         /// <summary>
         /// The Name of the <see cref="Court"/>
         /// </summary>
-        [Required]
         public string Name { get; set; }
+
+        /// <summary>
+        /// The id of the <see cref="Sport"/> allowed to be practiced on the Court
+        /// </summary>
+        public int SportForeignKey { get; set; }
 
         /// <summary>
         /// The <see cref="Sport"/> that can be practiced on the <see cref="Court"/>
         /// </summary>
-        [ForeignKey("SportForeignKey")]
         public virtual Sport Sport { get; set; }
+
+        /// <summary>
+        /// The list of booking from the court
+        /// </summary>
+        public virtual ICollection<Booking> Bookings { get; set; }
     }
 }
