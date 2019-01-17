@@ -19,6 +19,7 @@ namespace SportCenterAPI.Models.Config
         {
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).IsRequired();
+            builder.Property(u => u.Name).IsRequired();
             builder.Property(u => u.Password).IsRequired();
         }
     }

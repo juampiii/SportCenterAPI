@@ -16,7 +16,6 @@ namespace SportCenterAPI.Models.Config
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Id).IsRequired();
             builder.Property(s => s.Name).IsRequired();
-            builder.HasMany(s => s.Courts).WithOne();
         }
     }
 }

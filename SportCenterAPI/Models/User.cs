@@ -14,14 +14,11 @@ namespace SportCenterAPI.Models
         /// <summary>
         /// The ID of the <see cref="User"/>
         /// </summary>
-        [Key]
-        [Required]
         public int Id { get; set; }
 
         /// <summary>
         /// The Password of the <see cref="User"/>
         /// </summary>
-        [Required]
         public string Password { get; set; }
 
         /// <summary>
