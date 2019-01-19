@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SportCenterAPI.Data;
 using SportCenterAPI.Models;
+using SportCenterAPI.Models.Manager;
 
 namespace SportCenterAPI.Controllers
 {
@@ -17,29 +18,42 @@ namespace SportCenterAPI.Controllers
     [ApiController]
     public class SportsController : ControllerBase
     {
-        private readonly SportCenterDBContext _context;
+        private readonly ISportManager _manager;
 
         /// <summary>
         /// Create a new instance of the <see cref="SportsController"/>
         /// </summary>
-        /// <param name="context">The context for performing operations in the database</param>
-        public SportsController(SportCenterDBContext context)
+        /// <param name="manager">The manager for performing operations in the data</param>
+        public SportsController(ISportManager manager)
         {
-            _context = context;
+            _manager = manager;
         }
 
-        // GET: api/Sports
+        /// <summary>
+        /// Get the list of all Sports from the Sport Center,
+        /// </summary>
+        /// <returns>The list of available <see cref="Sport"/></returns>
         [HttpGet]
+        [ProducesResponseType(200)]
+        [Produces("application/json", Type = typeof(IEnumerable<Sport>))]
         public async Task<ActionResult<IEnumerable<Sport>>> GetSports()
         {
-            return await _context.Sports.Include(c => c.Courts).ToListAsync();
+            var sports = await _manager.GetAll();
+            return Ok(sports);
         }
 
-        // GET: api/Sports/5
+        /// <summary>
+        /// Get the <see cref="Sport"/> whose ID matches with the one received 
+        /// </summary>
+        /// <param name="id">The id of the <see cref="Sport"/> to checks</param>
+        /// <returns>The <see cref="Sport"/> whose ID matches with the one received </returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Produces("application/json", Type = typeof(Sport))]
         public async Task<ActionResult<Sport>> GetSport(int id)
         {
-            var sport = await _context.Sports.Include(c => c.Courts).FirstOrDefaultAsync(s => s.Id == id);
+            var sport = await _manager.Get(id);
 
             if (sport == null)
             {
@@ -49,8 +63,15 @@ namespace SportCenterAPI.Controllers
             return Ok(sport);
         }
 
-        // PUT: api/Sports/5
+        /// <summary>
+        /// Updates an existing <see cref="Sport"/>
+        /// </summary>
+        /// <param name="id">The ID of the <see cref="Sport"/> to update</param>
+        /// <param name="sport">The new values of the <see cref="Sport"/></param>
+        /// <returns>The result of the operation</returns>
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> PutSport(int id, Sport sport)
         {
             if (id != sport.Id)
@@ -58,56 +79,44 @@ namespace SportCenterAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(sport).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SportExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _manager.Update(id, sport);
 
             return NoContent();
         }
 
-        // POST: api/Sports
+        /// <summary>
+        /// Add a new <see cref="Sport"/>
+        /// </summary>
+        /// <param name="sport">The Sport to be added</param>
+        /// <returns>The result of the operation</returns>
         [HttpPost]
+        [ProducesResponseType(201, Type = typeof(Sport))]
         public async Task<ActionResult<Sport>> PostSport(Sport sport)
         {
-            _context.Sports.Add(sport);
-            await _context.SaveChangesAsync();
+            var sportAdded = await _manager.Add(sport);
 
-            return CreatedAtAction("GetSport", new { id = sport.Id }, sport);
+            return CreatedAtAction("GetSport", new { id = sportAdded.Id }, sportAdded);
         }
 
-        // DELETE: api/Sports/5
+        /// <summary>
+        /// Remove a <see cref="Sport"/> from the Sport Center.
+        /// </summary>
+        /// <param name="id">The Id of the <see cref="Sport"/> to remove</param>
+        /// <returns>The result of the operation</returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [Produces("application/json", Type = typeof(Sport))]
         public async Task<ActionResult<Sport>> DeleteSport(int id)
         {
-            var sport = await _context.Sports.FindAsync(id);
-            if (sport == null)
+            var element = await _manager.DeleteAsync(id);
+
+            if (element == null)
             {
                 return NotFound();
             }
 
-            _context.Sports.Remove(sport);
-            await _context.SaveChangesAsync();
-
-            return sport;
-        }
-
-        private bool SportExists(int id)
-        {
-            return _context.Sports.Any(e => e.Id == id);
+            return element;
         }
     }
 }

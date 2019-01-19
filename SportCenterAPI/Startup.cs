@@ -31,6 +31,7 @@ namespace SportCenterAPI
             services.AddDbContext<SportCenterDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DataBaseConnection")));
 
             SwaggerConfig.AddRegistration(services);
+            IoCConfig.AddRegistration(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
