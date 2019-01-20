@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -36,5 +37,13 @@ namespace SportCenterAPI.Models
         /// The list of booking from the court
         /// </summary>
         public virtual ICollection<Booking> Bookings { get; set; }
+
+        /// <summary>
+        /// Create a new instance of the <see cref="Court"/>
+        /// </summary>
+        public Court()
+        {
+            Bookings = new Collection<Booking>();
+        }
     }
 }

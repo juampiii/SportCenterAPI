@@ -29,7 +29,7 @@ namespace SportCenterAPI.Models.Manager
         /// <param name="courtId">The id of the <see cref="Court"/></param>
         /// <param name="dateTime">The dateTime to checks the availability</param>
         /// <returns></returns>
-        bool BookingExist(int courtId, DateTime dateTime);
+        bool BookingAlreadyExist(int courtId, DateTime dateTime);
 
         /// <summary>
         /// Checks if the <see cref="Member"/> is allowd to book a <see cref="Court"/> at a specific time

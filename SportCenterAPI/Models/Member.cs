@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SportCenterAPI.Models
 {
@@ -16,5 +17,13 @@ namespace SportCenterAPI.Models
         /// The list of booking from the user
         /// </summary>
         public virtual ICollection<Booking> Bookings { get; set; }
+
+        /// <summary>
+        /// Create a new instance of the <see cref="Member"/>
+        /// </summary>
+        public Member()
+        {
+            Bookings = new Collection<Booking>();
+        }
     }
 }

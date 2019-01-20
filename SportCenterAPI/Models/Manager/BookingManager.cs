@@ -62,9 +62,9 @@ namespace SportCenterAPI.Models.Manager
         }
 
         /// <inheritdoc />
-        public Task<bool> Exist(int id)
+        public async Task<bool> Exist(int id)
         {
-            return _context.Bookings.AnyAsync(e => e.Id == id);
+            return await _context.Bookings.AnyAsync(e => e.Id == id);
         }
 
         /// <inheritdoc />
@@ -111,13 +111,13 @@ namespace SportCenterAPI.Models.Manager
 
             _context.Bookings.Update(entity);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return entity;
         }
 
         /// <inheritdoc />
-        public bool BookingExist(int courtId, DateTime dateTime)
+        public bool BookingAlreadyExist(int courtId, DateTime dateTime)
         {
             return _context.Bookings
                 .Include(b => b.Court)

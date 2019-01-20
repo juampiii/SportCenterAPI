@@ -102,7 +102,7 @@ namespace SportCenterAPI.Controllers
                 return NotFound();
             }
 
-            return element;
+            return Ok(element);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace SportCenterAPI.Controllers
         [ProducesResponseType(400)]
         public ActionResult<Booking> PostBooking([FromBody] BookingDTO bookingRequest)
         {
-            if (_manager.BookingExist(bookingRequest.CourtId, bookingRequest.BookingDate))
+            if (_manager.BookingAlreadyExist(bookingRequest.CourtId, bookingRequest.BookingDate))
             {
                 return BadRequest("The court is already booked");
             }

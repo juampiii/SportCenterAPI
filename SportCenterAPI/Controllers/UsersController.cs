@@ -115,7 +115,7 @@ namespace SportCenterAPI.Controllers
                 return NotFound();
             }
 
-            return element;
+            return Ok(element);
         }
     }
 }
