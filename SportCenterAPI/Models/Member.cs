@@ -4,10 +4,20 @@ using System.Collections.ObjectModel;
 namespace SportCenterAPI.Models
 {
     /// <summary>
-    /// Represents a user who is member from the Sport Center
+    /// Represents a member from the Sport Center
     /// </summary>
-    public class Member : User
+    public class Member
     {
+        /// <summary>
+        /// The ID of the <see cref="Member"/>
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// The Name of the <see cref="Member"/>
+        /// </summary>
+        public string Name { get; set; }
+
         /// <summary>
         /// The phone number of the <see cref="Member"/>
         /// </summary>

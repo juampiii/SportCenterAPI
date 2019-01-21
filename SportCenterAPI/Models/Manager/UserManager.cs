@@ -77,5 +77,44 @@ namespace SportCenterAPI.Models.Manager
 
             return entity;
         }
+
+        /// <inheritdoc />
+        public async Task<User> RegisterAsync(string username, string password)
+        {
+            // Checks if the userName exists
+            var result = await _context.Users
+                .AnyAsync(x => x.Name == username);
+
+            if (result)
+            {
+                return null;
+            }
+
+            // Creates the new User
+            User user = new User()
+            {
+                Name = username,
+                Password = password,
+                CreatedDate = DateTime.Now
+            };
+
+            return await Add(user);
+        }
+
+        /// <inheritdoc />
+        public async Task<User> Authenticate(string username, string password)
+        {
+            var user = await Task.Run(() => _context.Users.SingleOrDefaultAsync(x => x.Name == username && x.Password == password));
+
+            // User not found
+            if (user == null)
+            {
+                return null;
+            }
+
+            // Send back the user without the password
+            user.Password = null;
+            return user;
+        }
     }
 }

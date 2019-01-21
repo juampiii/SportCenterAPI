@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SportCenterAPI.Config
+namespace SportCenterAPI.Config.Swagger
 {
     /// <summary>
     /// Allow to register and config the Swagger Service
@@ -31,6 +31,7 @@ namespace SportCenterAPI.Config
                     Version = "V1",
                     Description = "API Rest to manage courts booking"
                 });
+                c.OperationFilter<AuthorizationHeaderParameterOperationFilter>();
             });
 
             return services;

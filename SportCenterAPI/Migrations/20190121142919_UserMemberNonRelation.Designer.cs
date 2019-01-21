@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportCenterAPI.Data;
 
 namespace SportCenterAPI.Migrations
 {
     [DbContext(typeof(SportCenterDBContext))]
-    partial class SportCenterDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190121142919_UserMemberNonRelation")]
+    partial class UserMemberNonRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

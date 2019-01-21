@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SportCenterAPI.Data;
@@ -14,6 +15,7 @@ namespace SportCenterAPI.Controllers
     /// <summary>
     /// Represents a Controller to manage the operations in the <see cref="Court"/>.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CourtsController : ControllerBase

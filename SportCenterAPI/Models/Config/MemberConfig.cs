@@ -17,6 +17,7 @@ namespace SportCenterAPI.Models.Config
         /// <param name="builder">The entity builder to model the member properties</param>
         public static void SetBuilder(EntityTypeBuilder<Member> builder)
         {
+            builder.Property(m => m.Name).IsRequired();
         }
     }
 }

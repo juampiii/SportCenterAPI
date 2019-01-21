@@ -17,10 +17,27 @@ namespace SportCenterAPI.Test
             member.Should().NotBeNull();
             member.Id.Should().Be(0);
             member.Name.Should().BeNull();
-            member.Password.Should().BeNull();
             member.Phone.Should().BeNull();
             member.Bookings.Should().NotBeNull();
             member.Bookings.Count().Should().Be(0);
+        }
+
+        [TestMethod]
+        public void IdTest()
+        {
+            Member member = new Member();
+            member.Id = 22;
+
+            member.Id.Should().Be(22);
+        }
+
+        [TestMethod]
+        public void NameTest()
+        {
+            Member member = new Member();
+            member.Name = "Chuck Norris";
+
+            member.Name.Should().Be("Chuck Norris");
         }
 
         [TestMethod]

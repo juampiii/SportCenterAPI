@@ -83,6 +83,7 @@ namespace SportCenterAPI.Models.Manager
         {
             return await _context.Bookings
                 .Include(c => c.Court)
+                    .ThenInclude(s => s.Sport)
                 .Include(m => m.Member)
                 .ToListAsync();
         }

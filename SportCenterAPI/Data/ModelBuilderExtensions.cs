@@ -25,12 +25,13 @@ namespace SportCenterAPI.Data
                 new Court { Id = 3, Name = "Futbol Court 1", SportForeignKey = 2 },
                 new Court { Id = 4, Name = "Futbol Court 2", SportForeignKey = 2 }
             );
-            modelBuilder.Entity<Administrator>().HasData(
-                new Administrator { Id = 1, Name = "Admin", Password = "12341234" }
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Name = "Admin", Password = "12341234" },
+                new User { Id = 2, Name = "User1", Password = "12341234" }
             );
             modelBuilder.Entity<Member>().HasData(
-                new Member { Id = 2, Name = "Member1", Password = "12341234" },
-                new Member { Id = 3, Name = "Member2", Password = "12341234" }
+                new Member { Id = 2, Name = "Member1", Phone = "676789098" },
+                new Member { Id = 3, Name = "Member2", Phone = "676789098" }
             );
             modelBuilder.Entity<Booking>().HasData(
                 new Booking() { Id = 1, MemberForeignKey = 2, CourtForeignKey = 2, BookingDate = new System.DateTime(2019, 01, 17, 14, 0, 0), CreatedDate = DateTime.Now },

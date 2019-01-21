@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace SportCenterAPI.Controllers
     /// <summary>
     /// Represents a Controller to manage the operations in the <see cref="User"/>.
     /// </summary>
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -30,9 +32,49 @@ namespace SportCenterAPI.Controllers
         }
 
         /// <summary>
+        /// Allow to register a new <see cref="User"/>
+        /// </summary>
+        /// <param name="user">The <see cref="User"/> to be added</param>
+        /// <returns>The result of the operation</returns>
+        [AllowAnonymous]
+        [HttpPost("register")]
+        [ProducesResponseType(200, Type = typeof(User))]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> Register([FromBody]User user)
+        {
+            var userAdded = await _manager.RegisterAsync(user.Name, user.Password);
+
+            if (userAdded == null)
+                return BadRequest();
+
+            return Ok(userAdded);
+
+        }
+
+        /// <summary>
+        /// Authenticate an <see cref="User"/> into the Sport Center.
+        /// </summary>
+        /// <param name="user">The <see cref="User"/> to authenticate</param>
+        /// <returns>The result of the operation</returns>
+        [AllowAnonymous]
+        [HttpPost("authenticate")]
+        [ProducesResponseType(200, Type = typeof(User))]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> Authenticate([FromBody]User user)
+        {
+            var authenticatedUser = await _manager.Authenticate(user.Name, user.Password);
+
+            if (authenticatedUser == null)
+                return BadRequest();
+
+            return Ok(authenticatedUser);
+        }
+
+        /// <summary>
         /// Get the list of all Users from the Sport Center,
         /// </summary>
         /// <returns>The list of available <see cref="User"/></returns>
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(200)]
         [Produces("application/json", Type = typeof(IEnumerable<User>))]
@@ -49,6 +91,7 @@ namespace SportCenterAPI.Controllers
         /// <returns>The <see cref="User"/> whose ID matches with the one received </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<User>> GetUser(int id)
         {
@@ -81,20 +124,6 @@ namespace SportCenterAPI.Controllers
             await _manager.Update(id, user);
 
             return NoContent();
-        }
-
-        /// <summary>
-        /// Add a new <see cref="User"/>
-        /// </summary>
-        /// <param name="user">The User to be added</param>
-        /// <returns>The result of the operation</returns>
-        [HttpPost]
-        [ProducesResponseType(201, Type = typeof(User))]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            var userAdded = await _manager.Add(user);
-
-            return CreatedAtAction("GetSport", new { id = userAdded.Id }, userAdded);
         }
 
         /// <summary>

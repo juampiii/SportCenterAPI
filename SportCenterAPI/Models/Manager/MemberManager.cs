@@ -69,7 +69,7 @@ namespace SportCenterAPI.Models.Manager
             var entity = await Get(id);
 
             entity.Name = element.Name;
-            entity.Password = element.Password;
+            entity.Phone = element.Phone;
 
             _context.Members.Update(entity);
 

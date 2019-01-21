@@ -31,11 +31,6 @@ namespace SportCenterAPI.Data
         public DbSet<Member> Members { get; set; }
 
         /// <summary>
-        /// The list of <see cref="Administrator"/> entities loaded from the database
-        /// </summary>
-        public DbSet<Administrator> Administrators { get; set; }
-
-        /// <summary>
         /// The list of <see cref="User"/> entities loaded from the database
         /// </summary>
         public DbSet<User> Users { get; set; }
@@ -62,7 +57,6 @@ namespace SportCenterAPI.Data
         /// <param name="modelBuilder">The builder that defines the model for the context being created</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            AdministratorConfig.SetBuilder(modelBuilder.Entity<Administrator>());
             BookingConfig.SetBuilder(modelBuilder.Entity<Booking>());
             CourtConfig.SetBuilder(modelBuilder.Entity<Court>());
             MemberConfig.SetBuilder(modelBuilder.Entity<Member>());

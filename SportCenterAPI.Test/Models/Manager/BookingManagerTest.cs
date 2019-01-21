@@ -167,8 +167,8 @@ namespace SportCenterAPI.Models.Manager
             // Add the elements
             using (var context = new SportCenterDBContext(options))
             {
-                context.Members.Add(new Member() { Id = 1 });
-                context.Courts.Add(new Court() { Id = 1 });
+                context.Members.Add(new Member() { Id = 1, Name = "Manolo"});
+                context.Courts.Add(new Court() { Id = 1 , Sport = new Sport() { Id = 1} });
                 context.Bookings.Add(new Booking() { Id = 1, MemberForeignKey = 1, CourtForeignKey = 1 });
                 context.Bookings.Add(new Booking() { Id = 2, MemberForeignKey = 1, CourtForeignKey = 1, BookingDate = new DateTime(2019, 1, 1) });
                 context.SaveChanges();

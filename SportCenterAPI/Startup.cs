@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SportCenterAPI.Config;
+using SportCenterAPI.Config.Swagger;
 using SportCenterAPI.Data;
+using SportCenterAPI.Helpers;
 
 namespace SportCenterAPI
 {
@@ -34,6 +37,10 @@ namespace SportCenterAPI
             IoCConfig.AddRegistration(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Configure the authentication 
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +57,7 @@ namespace SportCenterAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             SwaggerConfig.AddRegistration(app);
 
