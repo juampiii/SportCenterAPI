@@ -5,7 +5,12 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportCenterAPI", "SportCenterAPI\SportCenterAPI.csproj", "{586ACB22-BDB2-4185-850A-D3EAE3283EAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportCenterAPI.Test", "SportCenterAPI.Test\SportCenterAPI.Test.csproj", "{BCB8CF54-B2E6-4F21-A2DB-C2465D7C2C03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportCenterAPI.Test", "SportCenterAPI.Test\SportCenterAPI.Test.csproj", "{BCB8CF54-B2E6-4F21-A2DB-C2465D7C2C03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F63BF620-D2D0-4B32-AB65-7F614A00FEBE}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
